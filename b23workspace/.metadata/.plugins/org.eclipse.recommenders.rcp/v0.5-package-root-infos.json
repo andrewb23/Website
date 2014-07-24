@@ -1,0 +1,119 @@
+[
+  {
+    "symbolicName": "maps",
+    "version": {
+      "major": -1,
+      "minor": -1,
+      "micro": -1,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "5242cbe3798c55a8c95addaf7e54cf52a2ec8468",
+    "jarFileModificationDate": "2014-04-13T12:52:27-04:00",
+    "location": "/Users/andrewkovalenko/Downloads/adt-bundle-mac-x86_64-20131030/sdk/add-ons/addon-google_apis-google-19/libs/maps.jar",
+    "javaRuntime": false
+  },
+  {
+    "symbolicName": "android-support-v7-appcompat",
+    "version": {
+      "major": -1,
+      "minor": -1,
+      "micro": -1,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "21297ae2bf22a0ce81c9b59992cf0693eec45d5b",
+    "jarFileModificationDate": "2014-04-13T12:28:33-04:00",
+    "location": "/Users/andrewkovalenko/b23/b23workspace/appcompat_v7/libs/android-support-v7-appcompat.jar",
+    "javaRuntime": false
+  },
+  {
+    "symbolicName": "android-support-v4",
+    "version": {
+      "major": -1,
+      "minor": -1,
+      "micro": -1,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "ded9acc6a9792b8f1afc470f0c9cd36d178914cd",
+    "jarFileModificationDate": "2014-04-13T12:28:33-04:00",
+    "location": "/Users/andrewkovalenko/b23/b23workspace/appcompat_v7/libs/android-support-v4.jar",
+    "javaRuntime": false
+  },
+  {
+    "symbolicName": "effects",
+    "version": {
+      "major": -1,
+      "minor": -1,
+      "micro": -1,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "8bb0abce1c01b4a78f4d7e52df57acc88e3b11ac",
+    "jarFileModificationDate": "2014-04-13T12:52:27-04:00",
+    "location": "/Users/andrewkovalenko/Downloads/adt-bundle-mac-x86_64-20131030/sdk/add-ons/addon-google_apis-google-19/libs/effects.jar",
+    "javaRuntime": false
+  },
+  {
+    "symbolicName": "android",
+    "version": {
+      "major": -1,
+      "minor": -1,
+      "micro": -1,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "7f972d2aa0fcb741fc84a9a10c98555f6f431a7a",
+    "jarFileModificationDate": "2014-04-13T12:42:49-04:00",
+    "location": "/Users/andrewkovalenko/Downloads/adt-bundle-mac-x86_64-20131030/sdk/platforms/android-19/android.jar",
+    "javaRuntime": false
+  },
+  {
+    "symbolicName": "appcompat_v7",
+    "version": {
+      "major": -1,
+      "minor": -1,
+      "micro": -1,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "5ff8e272c6e77cd297a1a5a09ecd923cdc693fab",
+    "jarFileModificationDate": "2014-06-12T12:05:17-04:00",
+    "location": "/Users/andrewkovalenko/b23/b23workspace/appcompat_v7/bin/appcompat_v7.jar",
+    "javaRuntime": false
+  },
+  {
+    "symbolicName": "google-play-services",
+    "version": {
+      "major": -1,
+      "minor": -1,
+      "micro": -1,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "7676c0cb230efa6ac41c47867d372ed5913029d4",
+    "jarFileModificationDate": "2014-04-13T13:38:07-04:00",
+    "location": "/Users/andrewkovalenko/Documents/CS 2110/Android Project/google_play_services/libproject/google-play-services_lib/libs/google-play-services.jar",
+    "javaRuntime": false
+  },
+  {
+    "symbolicName": "usb",
+    "version": {
+      "major": -1,
+      "minor": -1,
+      "micro": -1,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "371c7760ab73d06686e5b8be2a877d1b2f50d0c4",
+    "jarFileModificationDate": "2014-04-13T12:52:00-04:00",
+    "location": "/Users/andrewkovalenko/Downloads/adt-bundle-mac-x86_64-20131030/sdk/add-ons/addon-google_apis-google-19/libs/usb.jar",
+    "javaRuntime": false
+  },
+  {
+    "symbolicName": "google-play-services_lib",
+    "version": {
+      "major": -1,
+      "minor": -1,
+      "micro": -1,
+      "qualifier": ""
+    },
+    "jarFileFingerprint": "56bbbbc8e9e5e6898274235ca6ad45abc85fd426",
+    "jarFileModificationDate": "2014-06-26T11:16:35-04:00",
+    "location": "/Users/andrewkovalenko/Documents/CS 2110/Android Project/google_play_services/libproject/google-play-services_lib/bin/google-play-services_lib.jar",
+    "javaRuntime": false
+  }
+]

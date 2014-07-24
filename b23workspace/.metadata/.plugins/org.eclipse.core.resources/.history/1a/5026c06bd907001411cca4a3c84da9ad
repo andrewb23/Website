@@ -1,0 +1,232 @@
+package io.btt.android;
+
+import android.R;
+import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.app.Dialog;
+import android.app.DialogFragment;
+import android.location.Location;
+import android.location.LocationListener;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.Toast;
+
+import com.amazonaws.auth.BasicAWSCredentials;
+import com.amazonaws.services.s3.AmazonS3Client;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesClient;
+import com.google.android.gms.common.GooglePlayServicesUtil;
+import com.google.android.gms.location.LocationClient;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.model.LatLng;
+
+
+
+public class MainActivity extends Activity implements GooglePlayServicesClient.ConnectionCallbacks,
+GooglePlayServicesClient.OnConnectionFailedListener, LocationListener {
+
+	private AmazonS3Client s3Client = new AmazonS3Client(
+			new BasicAWSCredentials(Constants.ACCESS_KEY_ID,
+					Constants.SECRET_KEY));
+	
+	private final static int CONNECTION_FAILURE_RESOLUTION_REQUEST = 9000;
+	
+	private GoogleMap gMap;
+	private LocationClient loClient;
+	Location currentLocation;
+	public LatLng curLocCoord;
+	LocationRequest loRequest;
+	boolean updateRequest;
+	LocationListener listener;
+	
+    @SuppressLint("NewApi")
+	@Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        gMap = ((MapFragment) getFragmentManager().findFragmentById(R.id.map))
+				.getMap();
+
+		// allow to set location
+		gMap.setMyLocationEnabled(true);
+
+		// set up location client
+		loClient = new LocationClient(this, this, this);
+
+		loRequest = LocationRequest.create();
+		loRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+		loRequest.setInterval(5000);
+		loRequest.setFastestInterval(1000);
+        
+    }
+    
+    @Override
+    protected void onStart() {
+    	super.onStart();
+    	loClient.connect(); // connect location client
+		Log.d("test", "client connected");
+    }
+    
+    @Override
+    protected void onResume() {
+    	super.onResume();
+    }
+    
+    @Override
+    protected void onStop() {
+		loClient.disconnect();
+    	super.onStop();
+    }
+
+    @SuppressLint("NewApi")
+	protected void checkMapSetup() {
+		// check to see if the map has been set up yet, and if not, set it up
+		if (gMap == null) {
+			 gMap = ((MapFragment) getFragmentManager().findFragmentById(R.id.map))
+						.getMap();
+
+			if (gMap != null) {
+				return;
+			}
+		}
+
+	}
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+        if (id == R.id.action_settings) {
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+//    /**
+//     * A placeholder fragment containing a simple view.
+//     */
+//    public static class PlaceholderFragment extends Fragment {
+//
+//        public PlaceholderFragment() {
+//        }
+//
+//        @Override
+//        public View onCreateView(LayoutInflater inflater, ViewGroup container,
+//                Bundle savedInstanceState) {
+//            View rootView = inflater.inflate(R.layout.fragment_main, container, false);
+//            return rootView;
+//        }
+//    }
+
+	@Override
+	public void onLocationChanged(Location location) {
+		LatLng tempCoord = new LatLng(location.getLatitude(),
+				location.getLongitude());
+		curLocCoord = tempCoord;
+		
+	}
+
+
+	@Override
+	public void onStatusChanged(String provider, int status, Bundle extras) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void onProviderEnabled(String provider) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void onProviderDisabled(String provider) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void onConnectionFailed(ConnectionResult result) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void onConnected(Bundle connectionHint) {
+		Toast.makeText(this, "Connected", Toast.LENGTH_SHORT).show();
+
+		currentLocation = loClient.getLastLocation();
+		curLocCoord = new LatLng(currentLocation.getLatitude(),
+				currentLocation.getLongitude());
+
+		loClient.requestLocationUpdates(loRequest, (com.google.android.gms.location.LocationListener) this);
+
+		Log.d("test", "location retrieved");
+
+		// Zoom the camera in to current location
+		gMap.moveCamera(CameraUpdateFactory.newLatLngZoom(curLocCoord,
+				(float) 18.5));
+	}
+
+
+	@Override
+	public void onDisconnected() {
+		// TODO Auto-generated method stub
+		
+	}
+	
+private boolean servicesConnected() {
+		int errorCode = GooglePlayServicesUtil
+				.isGooglePlayServicesAvailable(this);
+		if (errorCode != ConnectionResult.SUCCESS) {
+			GooglePlayServicesUtil.getErrorDialog(errorCode, this, 0).show();
+			return false;
+		}
+		return true;
+	}
+	
+	// Define a DialogFragment that displays the error dialog
+		@SuppressLint("NewApi")
+		public static class ErrorDialogFragment extends DialogFragment {
+			// Global field to contain the error dialog
+			private Dialog mDialog;
+
+			// Default constructor. Sets the dialog field to null
+			public ErrorDialogFragment() {
+				super();
+				mDialog = null;
+			}
+
+			// Set the dialog to display
+			public void setDialog(Dialog dialog) {
+				mDialog = dialog;
+			}
+
+			// Return a Dialog to the DialogFragment.
+			@Override
+			public Dialog onCreateDialog(Bundle savedInstanceState) {
+				return mDialog;
+			}
+	}
+
+}
